@@ -5,41 +5,31 @@
 </template>
 
 <script>
-  // 이미지 url arr import
-  import images from '/src/assets/js/imageUrls'
+// 이미지 url arr import
+import images from '/src/assets/js/imageUrls'
 
 export default {
   name: 'DrawImage',
   data(){
     return{
-
       height: 800,
       width: 800,
-
       changedWidth: 0,
       changedHeight: 0,
-
-
-
       canvas: null,
       ctx: null,
+
+      img:'',
+      imgInx:0,
+      //이미지 기존 스케일
+      scale:1,
 
       // 현재 클릭된 마우스 (좌, 우)
       clickedVal:null,
       // 클릭 되어있는 상태 (클릭, 비클릭)
       clicked: false,
-
-      img:'',
-      imgInx:0,
-
-      //이미지 기존 스케일
-      scale:1,
-
       mousePositionX:null,
       mousePositionY:null,
-
-
-
     }
   },
   mounted() {
@@ -53,29 +43,16 @@ export default {
     this.bufferCanvas.height = this.canvas.height
     this.bufferCanvas.width = this.canvas.width
 
-
     // 마우스 휠
     this.canvas.addEventListener('wheel', this.wheelEvents, false)
 
     // 마우스 이벤트
-    this.canvas.addEventListener('mousedown',  event => {
-      console.log('mousedown', event)
+    // this.canvas.addEventListener('mousedown',  event => {
+    // }, false)
 
-      this.mousePositionX = event.offsetX
-      this.mousePositionY = event.offsetY
-
-      this.clicked = true
-      this.clickedVal = event.buttons
-    }, false)
-
-    this.canvas.addEventListener('mousemove', this.dragEvents, false);
-
-    this.canvas.addEventListener('mouseup', event => {
-      console.log('mouseup', event)
-
-      this.clicked = false
-      this.clickedVal = null
-    }, false);
+    this.canvas.addEventListener('mousedown', this.mousedownEvents, false);
+    this.canvas.addEventListener('mousemove', this.mousemoveEvents, false);
+    this.canvas.addEventListener('mouseup', this.mouseupEvents, false);
 
     // 이미지 랜더링
     this.drawImage(this.imgInx)
@@ -90,31 +67,21 @@ export default {
 
       let scale = this.scale
 
+      //마우스 클릭 위치 기준으로 줌
       if(this.mousePositionX > event.offsetX || this.mousePositionY > event.offsetY){
-
         scale = scale + 0.00001;
-        this.scale = scale
-        this.ctx.scale(scale, scale);
-
-        this.drawImage(this.imgInx)
-
-        this.mousePositionX = event.offsetX
-        this.mousePositionY = event.offsetY
-
       }else{
-
         scale = scale - 0.00001;
-        this.ctx.scale(scale, scale);
-        this.scale = scale
-
-        this.drawImage(this.imgInx)
-
-        this.mousePositionX = event.offsetX
-        this.mousePositionY = event.offsetY
       }
 
-    },
+      this.ctx.scale(scale, scale);
+      this.scale = scale
 
+      this.drawImage(this.imgInx)
+
+      this.mousePositionX = event.offsetX
+      this.mousePositionY = event.offsetY
+    },
 
     rotateImage(){
       // 이미지 회전 (우클릭 + 드래그)
@@ -131,8 +98,15 @@ export default {
       this.drawImage(this.imgInx)
 
     },
+    mousedownEvents(event){
+      console.log('mousedown', event)
+      this.mousePositionX = event.offsetX
+      this.mousePositionY = event.offsetY
+      this.clicked = true
+      this.clickedVal = event.buttons
+    },
 
-    dragEvents(event){
+    mousemoveEvents(event){
       //마우스 클릭후 드래그 이벤트
 
       if(this.clicked){
@@ -150,6 +124,11 @@ export default {
         }
       }
 
+    },
+    mouseupEvents(event){
+      console.log('mouseup', event)
+      this.clicked = false
+      this.clickedVal = null
     },
 
     wheelEvents(event){
