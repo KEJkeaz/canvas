@@ -6,8 +6,8 @@
 
 <script>
 // 이미지 url arr import
-import images from '/src/assets/js/imageUrls'
-
+import urls from '/src/assets/js/imageUrls'
+let images = []
 export default {
   name: 'DrawImage',
   data(){
@@ -19,7 +19,6 @@ export default {
       canvas: null,
       ctx: null,
 
-      img:'',
       imgInx:0,
       //이미지 기존 스케일
       scale:1,
@@ -47,16 +46,21 @@ export default {
     this.canvas.addEventListener('wheel', this.wheelEvents, false)
 
     // 마우스 이벤트
-    // this.canvas.addEventListener('mousedown',  event => {
-    // }, false)
 
     this.canvas.addEventListener('mousedown', this.mousedownEvents, false);
     this.canvas.addEventListener('mousemove', this.mousemoveEvents, false);
     this.canvas.addEventListener('mouseup', this.mouseupEvents, false);
 
-    // 이미지 랜더링
-    this.drawImage(this.imgInx)
+    for(let url of urls) {
+      var img = new Image()
+      img.src = url
+      images.push(img)
+    }
 
+    images[0].onload = () => {
+      // 이미지 랜더링
+      this.drawImage(this.imgInx)
+    }
   },
 
   methods:{
@@ -123,7 +127,6 @@ export default {
           // -- NO OP
         }
       }
-
     },
     mouseupEvents(event){
       console.log('mouseup', event)
@@ -137,7 +140,6 @@ export default {
 
       //1 = down wheel / -1 = up wheel
       let scale = Math.sign(event.deltaY)
-
       let inxData = this.imgInx - scale
 
       // up wheel : plus , down wheel : minus
@@ -155,13 +157,11 @@ export default {
 
     drawImage(inx){
       //캔버스에 이미지 드로잉
-      let img = new Image ()
-      img.src = images[inx]
+      let img = images[inx]
 
-      img.onload = () => {
+        //버퍼용 캔버스
         this.bufferCtx.drawImage(img, this.changedWidth, this.changedHeight, this.width, this.height);
         this.ctx.drawImage(this.bufferCanvas, this.changedWidth, this.changedHeight, this.width, this.height);
-      }
 
     },
   },

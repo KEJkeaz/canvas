@@ -1,4 +1,4 @@
-let images = [
+let urls = [
 "https://cdn.pixabay.com/photo/2020/05/11/15/21/blue-flower-5158746__340.jpg",
   "https://cdn.pixabay.com/photo/2020/10/05/10/29/horse-5628881__340.jpg",
   "https://cdn.pixabay.com/photo/2021/01/06/08/44/seeds-5893616__340.jpg",
@@ -50,4 +50,4 @@ let images = [
   "https://cdn.pixabay.com/photo/2020/11/17/13/53/cranberries-5752417__340.jpg",
   "https://cdn.pixabay.com/photo/2020/07/08/08/04/sunset-5383040__340.jpg"
 ]
-export default images
+export default urls
