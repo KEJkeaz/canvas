@@ -57,7 +57,7 @@ export default {
 
 
     // 마우스 휠
-    this.canvas.addEventListener('wheel', this.wheelEvents)
+    this.canvas.addEventListener('wheel', this.wheelEvents, false)
 
     // 마우스 이벤트
     this.canvas.addEventListener('mousedown',  event => {
