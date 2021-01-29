@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/Home.vue'
+import HelloWorld from '@/components/DrawImage.vue'
 
-describe('Home.vue', () => {
+describe('DrawImage.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
     const wrapper = shallowMount(HelloWorld, {
