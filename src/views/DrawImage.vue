@@ -1,6 +1,6 @@
 <template>
   <div class="DrawImage">
-    <canvas ref="imageCanvas" v-bind:width="width" v-bind:height="height" class="canvas" @wheel="wheelEvents($event)"></canvas>
+    <canvas ref="imageCanvas" v-bind:width="width" v-bind:height="height" class="canvas"></canvas>
   </div>
 </template>
 
