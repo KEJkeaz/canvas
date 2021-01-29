@@ -63,7 +63,6 @@ export default {
     this.canvas.addEventListener('mousedown',  event => {
       console.log('mousedown', event)
 
-
       this.mousePositionX = event.offsetX
       this.mousePositionY = event.offsetY
 
@@ -75,6 +74,7 @@ export default {
 
     this.canvas.addEventListener('mouseup', event => {
       console.log('mouseup', event)
+
       this.clicked = false
       this.clickedVal = null
     }, false);
@@ -195,8 +195,6 @@ export default {
 
 <style scoped>
   .canvas {
-    /*width: 400px;*/
-    /*height: 400px;*/
     border: 1px solid #000;
   }
 </style>
