@@ -5,13 +5,11 @@
 </template>
 
 <script>
+  // 이미지 url arr import
+  import images from '/src/assets/js/imageUrls'
+
 export default {
   name: 'DrawImage',
-  props:{
-    images:{
-      type: Array
-    }
-  },
   data(){
     return{
 
@@ -179,7 +177,7 @@ export default {
     drawImage(inx){
       //캔버스에 이미지 드로잉
       let img = new Image ()
-      img.src = this.images[inx]
+      img.src = images[inx]
 
       img.onload = () => {
         this.bufferCtx.drawImage(img, this.changedWidth, this.changedHeight, this.width, this.height);
